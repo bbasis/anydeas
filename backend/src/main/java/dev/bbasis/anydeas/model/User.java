@@ -5,9 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.processing.Pattern;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User extends Model{
@@ -36,48 +39,12 @@ public class User extends Model{
     @Column(nullable = false)
     private String password;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private boolean isDeleted;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getPassword() {
-        return password;
+    public User() {
+        this.isDeleted = false;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
@@ -93,6 +60,7 @@ public class User extends Model{
                 ", email='" + email + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }
